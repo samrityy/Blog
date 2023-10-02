@@ -24,12 +24,12 @@ class BlogListCreateAPIView(generics.ListCreateAPIView):
     #     self.perform_create(serializer)
     #     return Response(serializer.data)
 
-    @action(detail=True, methods=['GET'])
-    def like_count(self, request, pk=None):
+    # @action(detail=True, methods=['GET'])
+    # def like_count(self, request, pk=None):
         
-            post = self.get_object()
-            like_count = post.likes.count()  # Assuming you have a related_name "likes" for your Like model
-            return Response({"like_count": like_count})
+    #         post = self.get_object()
+    #         like_count = post.likes.count()  # Assuming you have a related_name "likes" for your Like model
+    #         return Response({"like_count": like_count})
 
 
 

@@ -123,6 +123,6 @@ class BlogSerializer(serializers.ModelSerializer):
                 instance.image.add(image_instance)
 
         return super().update(instance, validated_data)
-
+#
 
 
