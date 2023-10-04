@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from user.models import User
-from .models import Blog ,Images,Comment,Category,Tags
+from .models import Blog ,Images,Comment,Category,Tags,Likes
 
 
 from .models import User
@@ -26,6 +26,16 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model=Category
         fields='__all__'
+
+class LikeSerializer(serializers.ModelSerializer):
+   
+    class Meta:
+        model=Likes
+        fields='__all__'
+    
+    
+    
+    
 
 class CommentSerializer(serializers.ModelSerializer):
     username=serializers.PrimaryKeyRelatedField(write_only=True,queryset=User.objects.all())
@@ -59,7 +69,6 @@ class BlogSerializer(serializers.ModelSerializer):
     )
     def get_likes(self, obj):
         return (user.username for user in obj.likes.all())
-    
     def get_tag(self, obj):
           # Assuming 'tag' is a ManyToManyField to 'Tags'
        return [tag.name for tag in obj.tag.all()]

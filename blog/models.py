@@ -23,7 +23,7 @@ class Blog(models.Model):
     description=models.TextField(max_length=50,default='default description')
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     author_profile=models.ForeignKey(User,on_delete=models.SET_NULL, null=True,related_name='user_profile')
-    # likes=models.ManyToManyField(User,related_name='likes')
+    likes=models.ManyToManyField(User,related_name='liked_blogs')
     category=models.ForeignKey(Category,on_delete=models.SET_NULL, null=True)
     tag=models.ManyToManyField(Tags,related_name='tags')
     published_date=models.DateField(auto_now_add=False, auto_now=False, blank=True,null=True)
@@ -35,11 +35,9 @@ class Blog(models.Model):
         return self.title
     
 
-class Like(models.Model):
+class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    blog=models.ForeignKey(Blog,on_delete=models.CASCADE,related_name='likes',null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE ,related_name='liked' )
 
 class Images(models.Model):
     image=models.ImageField(upload_to="images/")
@@ -48,7 +46,7 @@ class Images(models.Model):
     # def image_url(self):
     #     if self.image:
     #         return f"{settings.BASE_URL}{self.image.url}"
-
+    # 
     
     def __str__(self):
         return str(self.image)
